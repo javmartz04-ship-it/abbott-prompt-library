@@ -81,24 +81,31 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   box-shadow:0 40px 90px -40px rgba(0,29,87,.4),inset 0 1px 0 #fff}
 .bezel-core{position:relative;border-radius:21px;overflow:hidden;background:var(--navy-deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .player{width:min(900px,100%);margin:44px auto 0}
-.poster{position:relative;aspect-ratio:16/9;background:var(--lit-navy);text-align:left;overflow:hidden}
-.poster img{position:absolute;right:0;top:0;height:100%;width:52%;object-fit:cover;object-position:50% 18%;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 38%);mask-image:linear-gradient(90deg,transparent,#000 38%)}
-.poster .copy{position:absolute;left:6%;top:50%;transform:translateY(-50%);max-width:36%;color:#fff}
-.poster .logo{height:38px;color:#fff}
-.poster .k{display:block;margin-top:26px;font:600 11.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-.poster .t{margin-top:12px;font:600 clamp(20px,2.6vw,32px)/1.12 var(--display);letter-spacing:-.03em;color:#fff}
-.poster .t span{color:var(--on-navy-em)}
-.poster .who{margin-top:16px;font-size:15px;color:rgba(255,255,255,.72)}
-.play{position:absolute;inset:0;z-index:2;display:grid;place-items:center;border:0;background:transparent;cursor:pointer}
+.player video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.play{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer;
+  background:linear-gradient(180deg,rgba(2,6,28,.04),rgba(2,6,28,.34));color:#fff;font:600 17px/1.2 var(--display);transition:opacity .4s var(--ease),background .4s var(--ease)}
+.play:hover{background:linear-gradient(180deg,rgba(2,6,28,0),rgba(2,6,28,.26))}
 .play .disc{position:relative;display:grid;place-items:center;width:92px;height:92px;border-radius:50%;background:var(--accent);box-shadow:0 18px 40px -10px rgba(0,85,254,.6);transition:transform .5s var(--ease)}
-.play .disc::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:ripple 2.4s var(--ease) infinite}
+.play .disc::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(255,255,255,.55);animation:ripple 2.4s var(--ease) infinite}
 .play:hover .disc{transform:scale(1.06)}
+.play .label{padding:9px 18px;border-radius:var(--r-pill);background:rgba(2,6,28,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 @keyframes ripple{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
-.chip{position:absolute;top:16px;left:16px;z-index:3;display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:var(--r-pill);background:rgba(247,248,251,.95);color:var(--ink);font:600 12.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px -12px rgba(0,0,0,.45)}
+.chip{position:absolute;top:16px;left:16px;z-index:3;display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:var(--r-pill);background:rgba(247,248,251,.95);color:var(--ink);font:600 12.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);transition:opacity .4s var(--ease)}
 .chip i{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,85,254,.18)}
-.player video{display:block;width:100%;aspect-ratio:16/9;background:#000}
-.player.playing .poster,.player.playing .play,.player.playing .chip{display:none}
+.player.started .chip,.player.started .play{opacity:0;pointer-events:none}
+.hold{position:absolute;inset:0;z-index:2;display:none;place-items:center;border:0;background:transparent;cursor:pointer}
+.player.started .hold{display:grid}
+.hold .pz{display:grid;place-items:center;width:80px;height:80px;border-radius:50%;background:rgba(2,6,28,.55);backdrop-filter:blur(6px);opacity:0;transition:opacity .3s var(--ease)}
+.player.started.paused .hold .pz{opacity:1}
+.bar{position:absolute;left:0;right:0;bottom:0;z-index:3;height:5px;background:rgba(255,255,255,.22);opacity:0;transition:opacity .4s var(--ease)}
+.bar span{display:block;height:100%;width:0;background:var(--accent)}
+.player.started .bar{opacity:1}
+.endcard{position:absolute;inset:0;z-index:4;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;text-align:center;
+  background:linear-gradient(rgba(2,6,28,.7),rgba(2,6,28,.82)),url(assets/vsl-poster.jpg) center/cover;opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
+.player.ended .endcard{opacity:1;pointer-events:auto}
+.player.ended .hold,.player.ended .bar{display:none}
+.endcard p{color:#fff;font:600 clamp(20px,2.4vw,28px)/1.25 var(--display);letter-spacing:-.02em;max-width:24ch}
+.again{border:0;background:none;color:rgba(255,255,255,.85);font:500 15.5px/1 var(--sans);text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:8px}
 .player-cap{margin-top:16px;font-size:15px;color:var(--muted)}
 .hero .cta-row{margin-top:38px}
 
@@ -336,19 +343,14 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   .player{margin-top:36px}
   .bezel{padding:6px;border-radius:22px}
   .bezel-core{border-radius:17px}
-  .poster img{width:60%}
-  .poster .copy{max-width:54%;left:5%}
-  .poster .logo{height:24px}
-  .poster .k,.poster .t{display:none}
-  .poster .copy{top:auto;bottom:14px;transform:none}
-  .poster img{width:72%}
-  .risk .x3{display:none}
-  .file-top em{display:none}
-  .mech-head .eyebrow{font-size:10.5px;letter-spacing:.1em}
-  .poster .who{display:none}
-  .play .disc{width:64px;height:64px}
+  .play .disc{width:66px;height:66px}
   .play .disc svg{width:22px;height:22px}
+  .play .label{font-size:14px;padding:7px 14px}
   .chip{top:10px;left:10px;font-size:10.5px;padding:7px 11px}
+  .endcard{gap:10px;padding:12px}
+  .endcard p{display:none}
+  .endcard .cta{width:auto;min-height:52px;font-size:15.5px;padding:6px 7px 6px 20px;gap:12px}
+  .endcard .cta .ico{width:38px;height:38px}
   .cta{width:100%;justify-content:space-between;padding-left:26px;font-size:17px}
   .creds{margin-top:56px}
   .creds div{padding:22px 10px 24px}
@@ -407,17 +409,16 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 
     <div class="player rise" id="player">
       <div class="bezel"><div class="bezel-core">
-        <span class="chip"><i></i>Press play</span>
-        <div class="poster">
-          <img src="assets/dean-stage.jpg" alt="" width="1028" height="1356">
-          <div class="copy">
-            <svg class="logo" aria-hidden="true"><use href="#aa-logo"/></svg>
-            <span class="k">The GenAI Prompt Library</span>
-            <p class="t">Prompt GenAI like a <span>senior practitioner.</span></p>
-            <p class="who">With Dean Abbott</p>
-          </div>
+        <video id="vsl" src="assets/intro.mp4" poster="assets/vsl-poster.jpg" preload="metadata" playsinline width="1280" height="720"></video>
+        <span class="chip"><i></i>Press play · 1:02</span>
+        <button class="play" type="button" aria-label="Play Dean's intro video, 1 minute 2 seconds"><span class="disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="label">Watch Dean's Intro</span></button>
+        <button class="hold" type="button" aria-label="Pause or resume the video"><span class="pz"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></span></button>
+        <div class="bar" aria-hidden="true"><span id="vbar"></span></div>
+        <div class="endcard">
+          <p>Ready to prompt GenAI like a senior practitioner?</p>
+          <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          <button class="again" type="button">Watch again</button>
         </div>
-        <button class="play" type="button" aria-label="Play the video"><span class="disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></button>
       </div></div>
     </div>
 
@@ -684,22 +685,21 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 <script>
 (() => {
   const CHECKOUT = 'https://academy.abbottanalytics.com/prompt-library-checkout';
-  // The VSL. Paste the video file URL here (MP4). Empty = poster only.
-  const VIDEO_URL = '';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // carry UTMs / fbclid through to checkout
   if (location.search) document.querySelectorAll('a.buy').forEach(a => a.href = CHECKOUT + location.search);
 
-  // VSL: poster until play, then the real player from 0:00 with sound
-  const player = document.getElementById('player');
-  player.querySelector('.play').addEventListener('click', () => {
-    if (!VIDEO_URL) return;
-    const v = document.createElement('video');
-    v.src = VIDEO_URL; v.controls = true; v.playsInline = true; v.autoplay = true;
-    player.querySelector('.bezel-core').appendChild(v);
-    player.classList.add('playing'); v.play().catch(() => {});
-  });
+  // VSL: poster until play, then from 0:00 with sound. tap to pause, end card with the CTA.
+  const player = document.getElementById('player'), vsl = document.getElementById('vsl'), vbar = document.getElementById('vbar');
+  const start = () => { vsl.currentTime = 0; vsl.muted = false; player.classList.add('started'); player.classList.remove('ended', 'paused'); vsl.play().catch(() => {}); };
+  player.querySelector('.play').addEventListener('click', start);
+  player.querySelector('.again').addEventListener('click', start);
+  player.querySelector('.hold').addEventListener('click', () => { vsl.paused ? vsl.play() : vsl.pause(); });
+  vsl.addEventListener('pause', () => player.classList.add('paused'));
+  vsl.addEventListener('play', () => player.classList.remove('paused'));
+  vsl.addEventListener('timeupdate', () => { if (vsl.duration) vbar.style.width = (vsl.currentTime / vsl.duration * 100) + '%'; });
+  vsl.addEventListener('ended', () => { player.classList.add('ended'); player.classList.remove('paused'); });
 
   // arrival reveals
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'});
