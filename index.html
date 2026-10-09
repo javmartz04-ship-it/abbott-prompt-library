@@ -59,7 +59,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .navy .risk b{color:#fff}
 
 /* hero: centered stack */
-.hero{position:relative;padding:38px 0 0;background:var(--lit-paper);overflow:hidden;text-align:center}
+.hero{position:relative;padding:38px 0 0;border-bottom:1px solid var(--hair);background:var(--lit-paper);overflow:hidden;text-align:center}
 .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:820px;pointer-events:none;
   background:radial-gradient(40% 50% at 22% 30%,rgba(0,85,254,.09),transparent 70%),radial-gradient(38% 46% at 80% 22%,rgba(0,29,87,.07),transparent 70%)}
 .hero > *{position:relative}
@@ -113,27 +113,67 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 /* sections */
 .section{padding:112px 0}
 
-/* problem: big fact + rows (Justin composition) */
-.problem{background:#fff;border-block:1px solid var(--hair)}
-.problem-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:80px;align-items:start}
-.bigfact{font:600 clamp(72px,9vw,120px)/.9 var(--display);letter-spacing:-.06em;color:var(--ink)}
-.bigfact small{font-size:.42em;letter-spacing:-.03em;color:var(--accent)}
-.bigfact-cap{margin-top:20px;font:600 clamp(23px,2.4vw,28px)/1.3 var(--display);color:var(--ink);letter-spacing:-.02em;max-width:18ch}
-.bigfact-note{margin-top:16px;font-size:17px;color:var(--muted);max-width:36ch}
-.fact-cta{margin-top:34px}
-.problem h2{font-size:clamp(32px,3.6vw,44px)}
-.rows{list-style:none;margin-top:34px;border-top:1px solid var(--hair)}
-.rows li{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:26px 0;border-bottom:1px solid var(--hair)}
-.num{font:600 15px/1.7 var(--display);color:var(--faint);font-variant-numeric:tabular-nums}
-.rows h3{font-size:21px;letter-spacing:-.02em;line-height:1.3}
-.rows p{margin-top:6px;font-size:16.5px}
+/* problem: copy + a chat that shows the failure, then three numbered cards */
+.problem{background:linear-gradient(180deg,#eaf0fa,#f4f7fc 60%,#f7f8fb);border-top:1px solid #dde4f0}
+.prob{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:center}
+.prob-copy h2{margin-top:22px;font-size:clamp(34px,4vw,52px)}
+.prob-copy h2 .em{display:block}
+.prob-copy p{margin-top:22px;font-size:18.5px;max-width:44ch}
+.prob-copy p b{color:var(--ink);font-weight:600}
+.chat{position:relative}
+.chat-win{border-radius:24px;background:#fff;border:1px solid var(--hair);box-shadow:0 40px 80px -46px rgba(0,29,87,.45);overflow:hidden}
+.chat-bar{display:flex;align-items:center;gap:7px;padding:14px 18px;border-bottom:1px solid var(--hair);background:var(--canvas)}
+.chat-bar i{width:10px;height:10px;border-radius:50%;background:#dfe4ee}
+.chat-bar span{margin-left:10px;font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chat-body{display:grid;gap:18px;padding:28px 26px 30px}
+.msg{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.chat.s1 .msg.you,.chat.s2 .msg.ai{opacity:1;transform:none}
+.msg.you{justify-self:end;max-width:78%}
+.msg.you p{padding:12px 16px;border-radius:18px 18px 4px 18px;background:var(--accent);color:#fff;font-size:16px}
+.msg.ai{display:grid;grid-template-columns:34px 1fr;gap:12px;max-width:92%}
+.msg.ai .av{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;font:600 12px/1 var(--display)}
+.msg.ai .reply{padding:14px 16px;border-radius:4px 18px 18px 18px;background:var(--soft);color:var(--ink);font-size:16px;line-height:1.55;display:none}
+.typing{display:inline-flex;gap:5px;padding:16px 18px;border-radius:4px 18px 18px 18px;background:var(--soft)}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--faint);animation:dot 1s var(--ease) infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{transform:translateY(-4px);opacity:.5}}
+.chat.s3 .typing{display:none}
+.chat.s3 .reply{display:block}
+.sure{display:none;align-items:center;gap:6px;margin-top:10px;padding:6px 10px;border-radius:999px;background:#e8f6ee;color:#1d7a4f;font:600 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;width:max-content}
+.chat.s3 .sure{display:inline-flex}
+.miss{position:relative;margin:-14px 22px 0 auto;width:min(360px,86%);padding:18px 20px;border-radius:18px;background:#fff;border:1.5px solid #f0b9b4;box-shadow:0 24px 50px -26px rgba(196,53,44,.45);
+  opacity:0;transform:translateY(14px) rotate(-1deg);transition:opacity .6s var(--ease),transform .7s var(--spring)}
+.chat.s4 .miss{opacity:1;transform:rotate(-1deg)}
+.miss-k{display:flex;align-items:center;gap:8px;font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#c4352c}
+.miss-k::before{content:"";width:8px;height:8px;border-radius:50%;background:#e5484d}
+.miss p{margin-top:8px;font:600 18px/1.35 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.chat-note{margin-top:16px;text-align:right;font-size:13.5px;color:var(--faint)}
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:72px}
+.pcard{padding:30px 28px 30px;border-radius:24px;background:#fff;border:1px solid var(--hair);box-shadow:0 20px 50px -40px rgba(0,29,87,.35)}
+.pn{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--accent-tint);font:600 14px/1 var(--display);color:var(--accent)}
+.pcard h3{margin-top:22px;font-size:21px;letter-spacing:-.02em;line-height:1.25}
+.pcard p{margin-top:10px;font-size:16px;line-height:1.6}
 
-/* reframe */
-.reframe{padding:120px 0;background:var(--lit-cream);text-align:center;border-bottom:1px solid var(--hair)}
-.reframe h2{font-size:clamp(36px,4.6vw,58px);max-width:20ch;margin-inline:auto}
+/* reframe: the first navy band */
+.reframe{position:relative;padding:128px 0;background:var(--lit-navy);color:rgba(255,255,255,.76);text-align:center;overflow:hidden}
+.reframe::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
+.reframe::after{content:"";position:absolute;left:50%;top:-40%;width:900px;height:700px;margin-left:-450px;background:radial-gradient(closest-side,rgba(0,85,254,.22),transparent);pointer-events:none}
+.reframe .wrap{position:relative;z-index:1}
+.ref-k{display:inline-flex;align-items:center;gap:10px;font:600 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--on-navy-em)}
+.ref-k::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--on-navy-em)}
+.reframe h2{margin:22px auto 0;color:#fff;font-size:clamp(38px,5vw,66px);max-width:20ch}
 .reframe h2 .em{display:block}
-.reframe p{margin:28px auto 0;max-width:56ch;font-size:19px}
-.reframe p b{color:var(--ink);font-weight:600}
+.reframe p{margin:28px auto 0;max-width:58ch;font-size:19px}
+.reframe p b{color:#fff;font-weight:600}
+.swap-line{display:grid;grid-template-columns:minmax(0,.8fr) auto minmax(0,1.2fr);align-items:stretch;gap:14px;max-width:880px;margin:52px auto 0;text-align:left}
+.swap-line > span{padding:18px 20px;border-radius:18px;font-size:16px;line-height:1.5}
+.swap-line small{display:block;margin-bottom:6px;font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.sl-in{background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);color:rgba(255,255,255,.5);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.sl-in small{text-decoration:none;color:rgba(255,255,255,.45)}
+.sl-arrow{display:grid;place-items:center;color:var(--on-navy-em);padding:0 !important}
+.sl-ask{background:#fff;color:var(--ink);font-weight:500;box-shadow:0 24px 50px -24px rgba(0,0,0,.5)}
+.sl-ask small{color:var(--accent)}
+.mech{background:#fff;border-bottom:1px solid var(--hair)}
 
 /* mechanism: four steps across */
 .mech-head{text-align:center}
@@ -187,7 +227,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .box-s{margin-top:1.2cqw;font:italic 400 2.3cqw/1.4 var(--sans);color:#6b7799}
 
 /* look inside: tabs drive the page */
-.look{background:#fff;border-block:1px solid var(--hair)}
+.look{background:var(--canvas);border-bottom:1px solid var(--hair)}
 .look-head{text-align:center}
 .look-head h2{margin:22px auto 0;font-size:clamp(34px,4vw,52px);max-width:20ch}
 .look-head p{margin:18px auto 0;font-size:18.5px;max-width:52ch}
@@ -225,22 +265,21 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .everything li b{display:block;font:600 16px/1.35 var(--display);color:var(--ink)}
 .everything li svg{margin-top:2px}
 
-/* client logos: one ink, one size language, a slow marquee */
-.logos{padding:56px 0 64px;background:var(--canvas);border-top:1px solid var(--hair)}
-.logos-head p{text-align:center;font:600 12.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.lmarq{margin-top:30px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.ltrack{display:flex;align-items:center;gap:64px;width:max-content;list-style:none;padding:6px 0;animation:lslide 70s linear infinite}
+/* trust strip under the video: real logos, slow marquee */
+.trust{margin-top:64px;padding-top:40px;border-top:1px solid var(--hair)}
+.trust-k{text-align:center;font:600 12.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.lmarq{margin-top:28px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.ltrack{display:flex;align-items:center;gap:60px;width:max-content;list-style:none;padding:6px 0;animation:lslide 75s linear infinite}
 .lmarq:hover .ltrack{animation-play-state:paused}
 .ltrack li{flex:none;display:flex;align-items:center}
-.ltrack img{display:block;width:auto;opacity:.62;transition:opacity .3s var(--ease)}
-.ltrack li:hover img{opacity:1}
+.ltrack img{display:block;width:auto}
 @keyframes lslide{to{transform:translateX(-50%)}}
-.featured{display:flex;align-items:center;justify-content:center;gap:40px;margin-top:36px;padding-top:30px;border-top:1px solid var(--hair);flex-wrap:wrap}
+.featured{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:34px;padding-bottom:64px}
 .featured span{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-.featured img{display:block;width:auto;opacity:.7}
+.featured img{display:block;width:auto}
 
 /* testimonials */
-.tests{background:#fff;border-top:1px solid var(--hair);overflow:hidden}
+.tests{background:var(--canvas);border-top:1px solid var(--hair);overflow:hidden}
 .tests-head{text-align:center}
 .tests-head h2{margin:22px auto 0;font-size:clamp(34px,4vw,50px);max-width:22ch}
 .tests-head h2 .em{display:block}
@@ -259,7 +298,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .ttrack{display:flex;gap:20px;width:max-content;padding:4px 0 18px;animation:lslide 90s linear infinite}
 .trow.rev .ttrack{animation-direction:reverse;animation-duration:100s}
 .trows:hover .ttrack{animation-play-state:paused}
-.tcard{flex:none;width:390px;display:flex;flex-direction:column;padding:26px 26px 22px;border-radius:24px;background:var(--canvas);border:1px solid var(--hair);transition:background .3s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease)}
+.tcard{flex:none;width:390px;display:flex;flex-direction:column;padding:26px 26px 22px;border-radius:24px;background:#fff;border:1px solid var(--hair);transition:background .3s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease)}
 .tcard:hover{background:#fff;transform:translateY(-3px);box-shadow:0 24px 50px -30px rgba(0,29,87,.4)}
 .tcard .qm{width:22px;height:17px}
 .tcard blockquote{flex:1;margin-top:14px;font-size:16px;line-height:1.6;color:var(--ink)}
@@ -332,22 +371,41 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .case-learn div{display:flex;align-items:center;gap:12px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);font-size:15.5px;font-weight:500;color:#fff}
 .case-learn svg{flex:none;color:var(--on-navy-em)}
 
-/* host */
-.host{background:var(--canvas)}
-.host-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:80px;align-items:center}
-.host .bezel{border-radius:32px;transform:rotate(-1.2deg);width:100%;max-width:440px;justify-self:center}
-.host .bezel-core{border-radius:23px;background:#2a2640}
-.host img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 16%}
-.host h2{font-size:clamp(38px,4.4vw,54px)}
-.quote{margin-top:24px;padding-left:20px;border-left:3px solid var(--accent);font:500 21px/1.45 var(--display);letter-spacing:-.015em;color:var(--ink)}
-.host .story{margin-top:22px;font-size:17.5px}
+/* host: Dean at chapter scale */
+.host{background:#fff;border-top:1px solid var(--hair)}
+.host-top{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:84px;align-items:center}
+.host-photos{position:relative;padding:0 0 64px}
+.hp-main{position:relative;padding:10px;border-radius:34px;background:linear-gradient(180deg,#fff,var(--soft));border:1px solid var(--hair);box-shadow:0 50px 100px -50px rgba(0,29,87,.55);max-width:480px}
+.hp-main img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:25px}
+.hp-main figcaption{position:absolute;left:24px;top:24px;padding:9px 14px;border-radius:999px;background:rgba(247,248,251,.94);font:600 12px/1 var(--sans);letter-spacing:.08em;color:var(--ink);box-shadow:0 10px 24px -12px rgba(0,0,0,.4)}
+.hp-2{position:absolute;right:0;bottom:0;width:46%;padding:7px;border-radius:24px;background:#fff;box-shadow:0 30px 60px -30px rgba(0,29,87,.55);transform:rotate(3deg)}
+.hp-2 img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px}
+.host-copy h2{margin-top:20px;font-size:clamp(46px,5.6vw,76px);letter-spacing:-.045em}
+.role{margin-top:12px;font:600 19px/1.4 var(--display);color:var(--accent)}
+.award{display:inline-flex;align-items:center;gap:9px;margin-top:20px;padding:10px 16px;border-radius:999px;background:var(--canvas);border:1px solid var(--hair);font-size:14.5px;font-weight:500;color:var(--ink)}
+.award svg{color:#f2b31f}
+.host .story{margin-top:20px;font-size:17.5px}
 .host .story b{color:var(--ink);font-weight:600}
-.facts{list-style:none;margin-top:30px;display:grid;gap:14px}
-.facts li{display:flex;gap:14px;align-items:flex-start;font-size:17px;color:var(--ink)}
-.facts svg{flex:none;margin-top:4px}
+.host .quote{margin-top:28px;padding:4px 0 4px 22px;border-left:3px solid var(--accent);font:500 21px/1.45 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.creds2{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-radius:26px;border:1px solid var(--hair);background:var(--canvas);overflow:hidden}
+.creds2 > div{padding:26px 24px 28px}
+.creds2 > div + div{border-left:1px solid var(--hair)}
+.ck{display:block;font:600 11.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.creds2 b{display:block;margin-top:12px;font:600 17px/1.3 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.creds2 > div > span:last-child{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--muted)}
+.career{margin-top:64px}
+.career-k{text-align:center;font:600 21px/1.4 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.career ol{position:relative;list-style:none;display:grid;grid-template-columns:repeat(7,1fr);gap:16px;margin-top:40px}
+.career ol::before{content:"";position:absolute;left:4%;right:4%;top:9px;height:2px;background:linear-gradient(90deg,var(--hair),var(--accent))}
+.career li{position:relative;padding-top:34px}
+.career li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent);box-shadow:0 0 0 5px #fff}
+.career li:last-child::before{background:var(--accent)}
+.cy{display:block;font:600 22px/1 var(--display);letter-spacing:-.03em;color:var(--ink)}
+.career b{display:block;margin-top:8px;font:600 14.5px/1.3 var(--display);color:var(--accent)}
+.cd{display:block;margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--muted)}
 
 /* offer: stack + price card */
-.offer{background:#fff;border-top:1px solid var(--hair)}
+.offer{background:#fff;border-bottom:1px solid var(--hair)}
 .offer-head{text-align:center}
 .offer-head h2{margin:22px auto 0;font-size:clamp(34px,4vw,50px);max-width:20ch}
 .offer-head p{margin:18px auto 0;font-size:18.5px}
@@ -381,7 +439,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .next .t span{display:block;margin-top:3px;font-size:14.5px;line-height:1.5;color:var(--muted)}
 
 /* qualification */
-.qual{background:var(--canvas);border-top:1px solid var(--hair)}
+.qual{background:#fff;border-top:1px solid var(--hair)}
 .qual h2{text-align:center;font-size:clamp(34px,4vw,48px)}
 .qual-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
 .qual .side.no .side-core{background:var(--canvas)}
@@ -391,7 +449,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .qual li svg{margin-top:4px}
 
 /* faq */
-.faq{background:#fff;border-top:1px solid var(--hair)}
+.faq{background:var(--canvas);border-top:1px solid var(--hair)}
 .faq h2{text-align:center;font-size:clamp(34px,4vw,46px)}
 .qa{margin-top:48px;border-top:1px solid var(--hair)}
 .qa details{border-bottom:1px solid var(--hair)}
@@ -430,7 +488,14 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 
 /* responsive */
 @media (max-width:1040px){
-  .problem-grid,.host-grid,.look-grid{grid-template-columns:minmax(0,1fr);gap:52px}
+  .prob,.host-top,.look-grid{grid-template-columns:minmax(0,1fr);gap:52px}
+  .pcards{grid-template-columns:1fr;gap:14px;margin-top:48px}
+  .creds2{grid-template-columns:1fr 1fr}
+  .creds2 > div:nth-child(3){border-left:0}
+  .creds2 > div:nth-child(n+3){border-top:1px solid var(--hair)}
+  .career ol{grid-template-columns:repeat(7,minmax(180px,1fr));overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+  .career ol::before{right:auto;width:1300px}
+  .host-photos{max-width:520px}
   .flow{grid-template-columns:minmax(0,1fr);padding:18px;gap:0;border-radius:24px}
   .wire{height:34px}
   .wire svg{display:none}
@@ -496,11 +561,18 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   .pages .p2{position:relative;left:auto;top:auto;margin:0;width:min(100%,330px)}
   .everything{grid-template-columns:1fr;padding:24px 20px}
   .case{padding:88px 0}
-  .logos{padding:44px 0 48px}
-  .ltrack{gap:40px;animation-duration:55s}
-  .ltrack img{transform:scale(.85)}
-  .featured{gap:22px;margin-top:28px}
+  .trust{margin-top:48px;padding-top:30px}
+  .ltrack{gap:38px;animation-duration:60s}
+  .featured{gap:22px;padding-bottom:44px}
   .featured span{width:100%;text-align:center}
+  .reframe{padding:88px 0}
+  .swap-line{grid-template-columns:1fr;gap:10px;margin-top:36px}
+  .sl-arrow{transform:rotate(90deg);height:24px}
+  .miss{margin:-10px 8px 0 auto}
+  .chat-note{text-align:left}
+  .creds2{grid-template-columns:1fr;margin-top:56px}
+  .creds2 > div + div{border-left:0;border-top:1px solid var(--hair)}
+  .hp-2{width:44%}
   .feature{margin-top:40px;padding:6px;border-radius:26px}
   .feature-core{grid-template-columns:1fr;gap:22px;padding:24px 20px;border-radius:21px}
   .f-photo{display:flex;align-items:center;gap:14px}
@@ -559,55 +631,53 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
       <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
     </div>
 
-    <div class="creds rv" aria-label="About Dean Abbott">
-      <div><b>Author</b><span><i>Applied Predictive Analytics</i>, Wiley</span></div>
-      <div><b>Professor</b><span>Analytics, UVA Darden</span></div>
-      <div><b>Nearly 40 years</b><span>Building predictive models</span></div>
-      <div><b>Thousands</b><span>Of practitioners taught</span></div>
+    <div class="trust rv">
+      <p class="trust-k">Dean has consulted for</p>
+      <div class="lmarq"><ul class="ltrack"><li><img src="assets/clogos/07.png" alt="IRS" width="78" height="35" style="height:35px" loading="lazy"></li><li><img src="assets/clogos/11.png" alt="Air Force" width="137" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/08.png" alt="Center for SEAL and SWCC" width="94" height="31" style="height:31px" loading="lazy"></li><li><img src="assets/clogos/12.png" alt="Marine Corps" width="120" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/clogos/15.png" alt="USAA" width="42" height="42" style="height:42px" loading="lazy"></li><li><img src="assets/clogos/16.png" alt="MetLife" width="117" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/clogos/17.png" alt="Nokia" width="114" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/clogos/18.png" alt="Kaiser Permanente" width="204" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/19.png" alt="Los Angeles Times" width="200" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/21.png" alt="Alaska Airlines" width="79" height="34" style="height:34px" loading="lazy"></li><li><img src="assets/clogos/02.png" alt="SPSS" width="59" height="42" style="height:42px" loading="lazy"></li><li><img src="assets/clogos/06.png" alt="YMCA" width="55" height="42" style="height:42px" loading="lazy"></li><li><img src="assets/clogos/22.png" alt="Monsanto" width="93" height="30" style="height:30px" loading="lazy"></li><li><img src="assets/clogos/14.png" alt="Peregrine Systems" width="113" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/clogos/10.png" alt="Revenue Canada" width="270" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/20.png" alt="Texas Comptroller of Public Accounts" width="218" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/13.png" alt="Defense Finance Accounting Service" width="37" height="42" style="height:42px" loading="lazy"></li><li><img src="assets/clogos/03.png" alt="Elder Research, Inc." width="119" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/clogos/04.png" alt="The Modeling Agency" width="125" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/clogos/05.png" alt="Seer Analytics, LLC" width="177" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/09.png" alt="TN Marketing" width="170" height="24" style="height:24px" loading="lazy"></li><li><img src="assets/clogos/01.png" alt="Elite Analytics" width="77" height="35" style="height:35px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/07.png" alt="" width="78" height="35" style="height:35px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/11.png" alt="" width="137" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/08.png" alt="" width="94" height="31" style="height:31px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/12.png" alt="" width="120" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/15.png" alt="" width="42" height="42" style="height:42px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/16.png" alt="" width="117" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/17.png" alt="" width="114" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/18.png" alt="" width="204" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/19.png" alt="" width="200" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/21.png" alt="" width="79" height="34" style="height:34px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/02.png" alt="" width="59" height="42" style="height:42px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/06.png" alt="" width="55" height="42" style="height:42px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/22.png" alt="" width="93" height="30" style="height:30px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/14.png" alt="" width="113" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/10.png" alt="" width="270" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/20.png" alt="" width="218" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/13.png" alt="" width="37" height="42" style="height:42px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/03.png" alt="" width="119" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/04.png" alt="" width="125" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/05.png" alt="" width="177" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/09.png" alt="" width="170" height="24" style="height:24px" loading="lazy"></li><li aria-hidden="true"><img src="assets/clogos/01.png" alt="" width="77" height="35" style="height:35px" loading="lazy"></li></ul></div>
+      <div class="featured"><span>Featured in</span><img src="assets/clogos/23.png" alt="Forbes" width="98" height="26" style="height:26px" loading="lazy"><img src="assets/clogos/25.png" alt="Berkeley Haas" width="115" height="23" style="height:23px" loading="lazy"><img src="assets/clogos/24.png" alt="IL Tech" width="173" height="22" style="height:22px" loading="lazy"></div>
     </div>
   </div>
-</section>
-
-<!-- 01b CLIENT LOGOS -->
-<section class="logos" aria-labelledby="lg-h">
-  <div class="wrap logos-head rv"><p id="lg-h">Dean has consulted for</p></div>
-  <div class="lmarq rv"><ul class="ltrack"><li><img src="assets/logos/07.png" alt="IRS" width="90" height="31" style="height:31px" loading="lazy"></li><li><img src="assets/logos/11.png" alt="Air Force" width="143" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/08.png" alt="Center for SEAL and SWCC" width="94" height="31" style="height:31px" loading="lazy"></li><li><img src="assets/logos/12.png" alt="Marine Corps" width="120" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/logos/15.png" alt="USAA" width="44" height="44" style="height:44px" loading="lazy"></li><li><img src="assets/logos/16.png" alt="MetLife" width="120" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/logos/17.png" alt="Nokia" width="116" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/logos/18.png" alt="Kaiser Permanente" width="216" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/19.png" alt="Los Angeles Times" width="208" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/21.png" alt="Alaska Airlines" width="79" height="34" style="height:34px" loading="lazy"></li><li><img src="assets/logos/02.png" alt="SPSS" width="60" height="43" style="height:43px" loading="lazy"></li><li><img src="assets/logos/06.png" alt="YMCA" width="57" height="44" style="height:44px" loading="lazy"></li><li><img src="assets/logos/22.png" alt="Monsanto" width="93" height="30" style="height:30px" loading="lazy"></li><li><img src="assets/logos/14.png" alt="Peregrine Systems" width="114" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/logos/10.png" alt="Revenue Canada" width="281" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/20.png" alt="Texas Comptroller of Public Accounts" width="237" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/13.png" alt="Defense Finance Accounting Service" width="39" height="44" style="height:44px" loading="lazy"></li><li><img src="assets/logos/03.png" alt="Elder Research, Inc." width="121" height="26" style="height:26px" loading="lazy"></li><li><img src="assets/logos/04.png" alt="The Modeling Agency" width="126" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/05.png" alt="Seer Analytics, LLC" width="184" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/09.png" alt="TN Marketing" width="180" height="25" style="height:25px" loading="lazy"></li><li><img src="assets/logos/01.png" alt="Elite Analytics" width="77" height="35" style="height:35px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/07.png" alt="" data-a="IRS" width="90" height="31" style="height:31px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/11.png" alt="" data-a="Air Force" width="143" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/08.png" alt="" data-a="Center for SEAL and SWCC" width="94" height="31" style="height:31px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/12.png" alt="" data-a="Marine Corps" width="120" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/15.png" alt="" data-a="USAA" width="44" height="44" style="height:44px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/16.png" alt="" data-a="MetLife" width="120" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/17.png" alt="" data-a="Nokia" width="116" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/18.png" alt="" data-a="Kaiser Permanente" width="216" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/19.png" alt="" data-a="Los Angeles Times" width="208" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/21.png" alt="" data-a="Alaska Airlines" width="79" height="34" style="height:34px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/02.png" alt="" data-a="SPSS" width="60" height="43" style="height:43px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/06.png" alt="" data-a="YMCA" width="57" height="44" style="height:44px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/22.png" alt="" data-a="Monsanto" width="93" height="30" style="height:30px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/14.png" alt="" data-a="Peregrine Systems" width="114" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/10.png" alt="" data-a="Revenue Canada" width="281" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/20.png" alt="" data-a="Texas Comptroller of Public Accounts" width="237" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/13.png" alt="" data-a="Defense Finance Accounting Service" width="39" height="44" style="height:44px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/03.png" alt="" data-a="Elder Research, Inc." width="121" height="26" style="height:26px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/04.png" alt="" data-a="The Modeling Agency" width="126" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/05.png" alt="" data-a="Seer Analytics, LLC" width="184" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/09.png" alt="" data-a="TN Marketing" width="180" height="25" style="height:25px" loading="lazy"></li><li aria-hidden="true"><img src="assets/logos/01.png" alt="" data-a="Elite Analytics" width="77" height="35" style="height:35px" loading="lazy"></li></ul></div>
-  <div class="wrap featured rv"><span>Featured in</span><img src="assets/logos/23.png" alt="Forbes" width="90" height="24" style="height:24px" loading="lazy"><img src="assets/logos/25.png" alt="Berkeley Haas" width="105" height="21" style="height:21px" loading="lazy"><img src="assets/logos/24.png" alt="IL Tech" width="158" height="20" style="height:20px" loading="lazy"></div>
 </section>
 
 <!-- 02 PROBLEM -->
 <section class="section problem" aria-labelledby="p-h">
-  <div class="wrap problem-grid">
-    <div class="rv">
-      <p class="bigfact">3<small> of 3</small></p>
-      <p class="bigfact-cap">AI engines missed the same leak in Dean's test.</p>
-      <p class="bigfact-note">Same problem. Same dataset. A confident answer and clean metrics from every one of them, and not one objection raised.</p>
-      <div class="fact-cta">
-        <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-        <p class="risk"><b>$47 one-time</b> · Instant access</p>
+  <div class="wrap prob">
+    <div class="prob-copy rv">
+      <p class="eyebrow">The real problem</p>
+      <h2 id="p-h">GenAI can get you to the wrong answer <span class="em">faster than ever.</span></h2>
+      <p>It writes code in seconds. Suggests features. Diagnoses performance. Generates documentation. Recommends next steps. <b>And it sounds completely certain while doing it.</b></p>
+    </div>
+    <div class="chat rv" id="chat" style="--rd:.08s">
+      <div class="chat-win">
+        <div class="chat-bar"><i></i><i></i><i></i><span>GenAI assistant</span></div>
+        <div class="chat-body">
+          <div class="msg you"><p>Is this feature useful?</p></div>
+          <div class="msg ai"><span class="av">AI</span><div><p class="typing" aria-hidden="true"><i></i><i></i><i></i></p><p class="reply">Yes. It's one of the strongest predictors in your dataset. Include it and your model should improve noticeably.</p><span class="sure"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sounds certain</span></div></div>
+        </div>
       </div>
+      <div class="miss"><span class="miss-k">What it never asked</span><p>"Could this feature be leaking the target?"</p></div>
+      <p class="chat-note">An illustration of the pattern. The library's first framework is built to ask that question.</p>
     </div>
-    <div class="rv" style="--rd:.08s">
-      <h2 id="p-h">GenAI can get you to the wrong answer faster than ever.</h2>
-      <ol class="rows">
-        <li><span class="num">01</span><div><h3>It sounds certain either way.</h3><p>It writes code, suggests features and diagnoses performance in seconds. A plausible answer and a correct one look exactly the same.</p></div></li>
-        <li><span class="num">02</span><div><h3>It answers the question you asked.</h3><p>Not the one you should have asked. Automation can generate the answer. It cannot guarantee you asked the right question.</p></div></li>
-        <li><span class="num">03</span><div><h3>Generic prompt packs make it worse.</h3><p>Prompts written for everyday tasks were never built for feature work, diagnostics or model critique.</p></div></li>
-      </ol>
-    </div>
+  </div>
+  <div class="wrap pcards">
+    <div class="pcard rv"><span class="pn">01</span><h3>It sounds certain either way.</h3><p>A plausible answer and a correct one look exactly the same in a chat window.</p></div>
+    <div class="pcard rv" style="--rd:.08s"><span class="pn">02</span><h3>It answers the question you asked.</h3><p>Not the one you should have asked. Automation can generate the answer. It can't guarantee you asked the right question.</p></div>
+    <div class="pcard rv" style="--rd:.16s"><span class="pn">03</span><h3>Generic prompt packs make it worse.</h3><p>Prompts written for everyday tasks were never built for feature work, diagnostics or model critique.</p></div>
   </div>
 </section>
 
 <!-- 03 REFRAME -->
-<section class="reframe" aria-labelledby="r-h">
+<section class="reframe navy" aria-labelledby="r-h">
   <div class="wrap rv">
+    <p class="ref-k">The reframe</p>
     <h2 id="r-h">You don't need more AI answers. <span class="em">You need better questions.</span></h2>
     <p>The question isn't "can GenAI help with machine learning?" It can. The question is which parts of the work it should accelerate, and which decisions still need an experienced practitioner. <b>That line is what this library is built on.</b></p>
+    <div class="swap-line"><span class="sl-in"><small>Instead of</small>"Explain this result."</span><span class="sl-arrow" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="sl-ask"><small>Ask</small>"Give me three competing explanations and the evidence that would distinguish them."</span></div>
   </div>
 </section>
 
 <!-- 04 MECHANISM -->
-<section class="section" aria-labelledby="m-h">
+<section class="section mech" aria-labelledby="m-h">
   <div class="wrap">
     <div class="mech-head rv">
       <p class="eyebrow">The practitioner-first prompt method</p>
@@ -675,83 +745,6 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   </div>
 </section>
 
-<!-- 06 THE CASE (the one navy band) -->
-<section class="case navy" aria-labelledby="k-h">
-  <div class="wrap">
-    <div class="case-head rv">
-      <span class="case-k">Included: the leakage case</span>
-      <h2 id="k-h">Three AI engines. One dataset. <span class="em">The same mistake.</span></h2>
-      <p>Dean gave the same modeling problem to multiple AI engines. Each produced a plausible answer. Each missed the same leakage issue. Not because they couldn't analyze the data, but because none of them recognized the assumption that should have stopped the analysis.</p>
-    </div>
-    <div class="flow rv" id="flow" role="img" aria-label="One modeling problem goes to engines A, B and C. Each gives a confident answer with clean metrics and no objection. All three miss the same leak. The library's case study walks through what they missed.">
-      <div class="src">
-        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/></svg></span>
-        <h3>One modeling problem</h3>
-        <p>Same dataset. Same question. Given to three AI engines.</p>
-        <div class="dataset" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      </div>
-      <div class="wire w1" aria-hidden="true"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><path pathLength="1" d="M0 150 C 55 150, 45 50, 100 50"/><path pathLength="1" d="M0 150 L 100 150"/><path pathLength="1" d="M0 150 C 55 150, 45 250, 100 250"/></svg></div>
-      <div class="engines">
-          <div><div class="eng"><div class="eng-top"><span class="badge">A</span><b>Engine A</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
-          <div><div class="eng"><div class="eng-top"><span class="badge">B</span><b>Engine B</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
-          <div><div class="eng"><div class="eng-top"><span class="badge">C</span><b>Engine C</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
-      </div>
-      <div class="wire w2" aria-hidden="true"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><path pathLength="1" d="M0 50 C 55 50, 45 150, 100 150"/><path pathLength="1" d="M0 150 L 100 150"/><path pathLength="1" d="M0 250 C 55 250, 45 150, 100 150"/></svg></div>
-      <div class="result">
-        <article class="doc"><header class="doc-head"><svg class="dl" aria-hidden="true"><use href="#aa-logo"/></svg><span>Prompt library<small>Case study</small></span></header><div class="doc-body"><div class="doc-title"><h4>The leakage <em>case</em></h4></div><p class="doc-p">Three engines, one dataset, the same mistake. Walked through start to finish.</p><div class="doc-key"><span class="dk-l">What all three missed</span><p class="dk-ask">The assumption that should have <span>stopped the analysis.</span></p></div></div></article>
-      </div>
-    </div>
-    <div class="case-learn rv">
-      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The full walkthrough, start to finish</div>
-      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Where the engines went wrong, and why</div>
-      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The assumption every framework now checks for</div>
-    </div>
-  </div>
-</section>
-
-<!-- 07 HOST -->
-<section class="section host" aria-labelledby="d-h">
-  <div class="wrap host-grid">
-    <div class="bezel rv"><div class="bezel-core"><img src="assets/dean-stage.jpg" alt="Dean Abbott speaking on stage" width="1028" height="1356" loading="lazy"></div></div>
-    <div class="rv" style="--rd:.08s">
-      <h2 id="d-h">Meet Dean Abbott.</h2>
-      <p class="quote">"Automation gets you to an answer faster. It does not make it the right answer."</p>
-      <p class="story">Dean has spent <b>nearly four decades</b> building predictive models, leading analytics teams, consulting and teaching, across government, finance, healthcare, retail, media, fraud, churn, targeting, Medicare analytics and leakage investigations.</p>
-      <p class="story">His methods have been taught to <b>thousands of practitioners</b> through consulting engagements, workshops, university programs, conferences and books. This library brings the same practitioner-first thinking to GenAI.</p>
-      <ul class="facts">
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Author of <i>Applied Predictive Analytics</i> (Wiley)</li>
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Professor of analytics, UVA Darden School of Business</li>
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>President of Abbott Analytics</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 07b TESTIMONIALS -->
-<section class="section tests" aria-labelledby="t-h">
-  <div class="wrap">
-    <div class="tests-head rv">
-      <p class="eyebrow">What clients say</p>
-      <h2 id="t-h">Three decades of work. <span class="em">Here's what it looks like from the other side.</span></h2>
-    </div>
-    <figure class="feature rv">
-      <div class="feature-core">
-        <div class="f-photo"><img src="assets/people/12.jpg" alt="Eric Siegel" width="384" height="384" loading="lazy"></div>
-        <div class="f-text">
-          <svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg>
-          <blockquote><p class="f-big">"Dean Abbott is the quintessential data mining rock star: a top-notch hands-on practitioner of predictive analytics and a fantastic communicator."</p>
-          <p class="f-small">"I've had the pleasure to work with him as a senior consultant on client projects, as a 5-star-rated conference speaker I've repeatedly enlisted for Predictive Analytics World, and as an acclaimed workshop instructor at the same event. You get the best of all worlds with Dean: deep analytical insights, stellar execution, clear communication, and contagious enthusiasm."</p></blockquote>
-          <figcaption><b>Eric Siegel</b><span>Founder of Machine Learning Week · Former Columbia professor · Bestselling author</span></figcaption>
-        </div>
-      </div>
-    </figure>
-  </div>
-  <div class="trows rv" aria-label="More testimonials">
-    <div class="trow"><div class="ttrack"><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is undoubtedly one of the top independent data mining consultants in the market. He excels as an expert trainer able to present complex topics to audiences of all backgrounds.</blockquote><figcaption><img src="assets/people/07.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Daniele Micci-Barreca</b>Data Science, Google Search · ex Uber</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean delivered key circulation models on time and within budget. He will be the first person I call if my clients need predictive modeling.</blockquote><figcaption><img src="assets/people/05.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Greg Timpany</b>Formerly of the Los Angeles Times</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is the "full package." I have engaged Dean frequently over the last 11 years, and for good reason. He receives exemplary feedback from clients.</blockquote><figcaption><img src="assets/people/06.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric King</b>President &amp; Owner, TMA, LLC</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an incredibly bright individual who finds patterns in data that very few other people can. I have seen a number of his models deployed to great success.</blockquote><figcaption><img src="assets/people/03.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Matt Tessar</b>Co-Founder and CTO, Tesmo</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>His ability to combine state-of-the-art analytics with pragmatic business issues is truly a wonder to behold.</blockquote><figcaption><img src="assets/people/09.jpg" alt="" width="44" height="44" loading="lazy"><span><b>T. Scott Clendaniel</b>VP of Data Science, Analytic Edge</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean has the rare combination of technical expertise and the ability to communicate clearly, complicated data mining solutions to a general audience.</blockquote><figcaption><img src="assets/people/01.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Brian Siegel</b>Director of Analytics</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is undoubtedly one of the top independent data mining consultants in the market. He excels as an expert trainer able to present complex topics to audiences of all backgrounds.</blockquote><figcaption><img src="assets/people/07.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Daniele Micci-Barreca</b>Data Science, Google Search · ex Uber</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean delivered key circulation models on time and within budget. He will be the first person I call if my clients need predictive modeling.</blockquote><figcaption><img src="assets/people/05.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Greg Timpany</b>Formerly of the Los Angeles Times</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is the "full package." I have engaged Dean frequently over the last 11 years, and for good reason. He receives exemplary feedback from clients.</blockquote><figcaption><img src="assets/people/06.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric King</b>President &amp; Owner, TMA, LLC</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an incredibly bright individual who finds patterns in data that very few other people can. I have seen a number of his models deployed to great success.</blockquote><figcaption><img src="assets/people/03.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Matt Tessar</b>Co-Founder and CTO, Tesmo</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>His ability to combine state-of-the-art analytics with pragmatic business issues is truly a wonder to behold.</blockquote><figcaption><img src="assets/people/09.jpg" alt="" width="44" height="44" loading="lazy"><span><b>T. Scott Clendaniel</b>VP of Data Science, Analytic Edge</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean has the rare combination of technical expertise and the ability to communicate clearly, complicated data mining solutions to a general audience.</blockquote><figcaption><img src="assets/people/01.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Brian Siegel</b>Director of Analytics</span></figcaption></figure></div></div>
-    <div class="trow rev"><div class="ttrack"><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is masterful at blending data science with a deep understanding of retail customer behavior. He always lets the data drive his decisions.</blockquote><figcaption><img src="assets/people/10.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Ryan Cush</b>VP, Strategic Account Management, SmarterHQ</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an insightful thinker who can quickly get to the core of the problem and who can consistently provide useful solutions.</blockquote><figcaption><img src="assets/people/00.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Dariusz Wroblewski</b>President, BioFormatix, Inc.</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He not only has a deep understanding of this complex field, but can also effectively train a relative novice business user to perform successful data modeling.</blockquote><figcaption><img src="assets/people/02.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric Vogan</b>Customer Success Manager, Select Star</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean sees things most of us are blind to and is very gracious in sharing his insight. He is a great speaker, profound teacher, and just a joy to experience.</blockquote><figcaption><img src="assets/people/04.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Lynne White</b>Indoor Environmental Consultant</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He's the perfect combination of experiential knowledge and inferential learning. Working with Dean is fun and you'll always learn something new!</blockquote><figcaption><img src="assets/people/11.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Michele Chambers</b>B2B Fractional CMO</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean Abbott has offered predictive analytic workshops throughout the country and the feedback from those who attend is always very positive. I never hesitate to recommend one of Dean's courses.</blockquote><figcaption><img src="assets/people/08.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Win Noren</b>Director of Operations, WarePig</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is masterful at blending data science with a deep understanding of retail customer behavior. He always lets the data drive his decisions.</blockquote><figcaption><img src="assets/people/10.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Ryan Cush</b>VP, Strategic Account Management, SmarterHQ</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an insightful thinker who can quickly get to the core of the problem and who can consistently provide useful solutions.</blockquote><figcaption><img src="assets/people/00.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Dariusz Wroblewski</b>President, BioFormatix, Inc.</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He not only has a deep understanding of this complex field, but can also effectively train a relative novice business user to perform successful data modeling.</blockquote><figcaption><img src="assets/people/02.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric Vogan</b>Customer Success Manager, Select Star</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean sees things most of us are blind to and is very gracious in sharing his insight. He is a great speaker, profound teacher, and just a joy to experience.</blockquote><figcaption><img src="assets/people/04.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Lynne White</b>Indoor Environmental Consultant</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He's the perfect combination of experiential knowledge and inferential learning. Working with Dean is fun and you'll always learn something new!</blockquote><figcaption><img src="assets/people/11.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Michele Chambers</b>B2B Fractional CMO</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean Abbott has offered predictive analytic workshops throughout the country and the feedback from those who attend is always very positive. I never hesitate to recommend one of Dean's courses.</blockquote><figcaption><img src="assets/people/08.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Win Noren</b>Director of Operations, WarePig</span></figcaption></figure></div></div>
-  </div>
-</section>
-
 <!-- 08 OFFER -->
 <section class="section offer" aria-labelledby="o-h">
   <div class="wrap">
@@ -795,6 +788,93 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
       <div><span class="i">02</span><span class="t"><b>Instant access</b><span>The library is yours the moment you check out.</span></span></div>
       <div><span class="i">03</span><span class="t"><b>Start with Framework 01</b><span>Run it on the model you're working on this week.</span></span></div>
     </div>
+  </div>
+</section>
+
+<!-- 06 THE CASE (the one navy band) -->
+<section class="case navy" aria-labelledby="k-h">
+  <div class="wrap">
+    <div class="case-head rv">
+      <span class="case-k">Included: the leakage case</span>
+      <h2 id="k-h">Three AI engines. One dataset. <span class="em">The same mistake.</span></h2>
+      <p>Dean gave the same modeling problem to multiple AI engines. Each produced a plausible answer. Each missed the same leakage issue. Not because they couldn't analyze the data, but because none of them recognized the assumption that should have stopped the analysis.</p>
+    </div>
+    <div class="flow rv" id="flow" role="img" aria-label="One modeling problem goes to engines A, B and C. Each gives a confident answer with clean metrics and no objection. All three miss the same leak. The library's case study walks through what they missed.">
+      <div class="src">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/></svg></span>
+        <h3>One modeling problem</h3>
+        <p>Same dataset. Same question. Given to three AI engines.</p>
+        <div class="dataset" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="wire w1" aria-hidden="true"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><path pathLength="1" d="M0 150 C 55 150, 45 50, 100 50"/><path pathLength="1" d="M0 150 L 100 150"/><path pathLength="1" d="M0 150 C 55 150, 45 250, 100 250"/></svg></div>
+      <div class="engines">
+          <div><div class="eng"><div class="eng-top"><span class="badge">A</span><b>Engine A</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
+          <div><div class="eng"><div class="eng-top"><span class="badge">B</span><b>Engine B</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
+          <div><div class="eng"><div class="eng-top"><span class="badge">C</span><b>Engine C</b><span class="pill"><i></i><em style="font-style:normal">Running</em></span></div><div class="checks"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confident</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Clean metrics</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No objection</span></div></div></div>
+      </div>
+      <div class="wire w2" aria-hidden="true"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><path pathLength="1" d="M0 50 C 55 50, 45 150, 100 150"/><path pathLength="1" d="M0 150 L 100 150"/><path pathLength="1" d="M0 250 C 55 250, 45 150, 100 150"/></svg></div>
+      <div class="result">
+        <article class="doc"><header class="doc-head"><svg class="dl" aria-hidden="true"><use href="#aa-logo"/></svg><span>Prompt library<small>Case study</small></span></header><div class="doc-body"><div class="doc-title"><h4>The leakage <em>case</em></h4></div><p class="doc-p">Three engines, one dataset, the same mistake. Walked through start to finish.</p><div class="doc-key"><span class="dk-l">What all three missed</span><p class="dk-ask">The assumption that should have <span>stopped the analysis.</span></p></div></div></article>
+      </div>
+    </div>
+    <div class="case-learn rv">
+      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The full walkthrough, start to finish</div>
+      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Where the engines went wrong, and why</div>
+      <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The assumption every framework now checks for</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 HOST -->
+<section class="section host" aria-labelledby="d-h">
+  <div class="wrap host-top">
+    <div class="host-photos rv">
+      <figure class="hp-main"><img src="assets/dean-pawb.jpg" alt="Dean Abbott speaking at Predictive Analytics World" width="1000" height="1248" loading="lazy"><figcaption>On stage at Predictive Analytics World</figcaption></figure>
+      <figure class="hp-2"><img src="assets/dean-berlin.jpg" alt="Dean Abbott delivering a keynote" width="1248" height="1248" loading="lazy"></figure>
+    </div>
+    <div class="host-copy rv" style="--rd:.08s">
+      <p class="eyebrow">Meet your guide</p>
+      <h2 id="d-h">Dean Abbott.</h2>
+      <p class="role">Founder &amp; Chief Data Scientist, Abbott Analytics</p>
+      <p class="award"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>Included in "Top 10 Best Data Scientists in the World" (2025)</p>
+      <p class="story">An internationally recognized thought leader in data science and predictive analytics, with <b>more than three decades</b> applying machine learning to customer analytics, fraud detection, risk modeling, text mining and survey analysis.</p>
+      <p class="story">He co-founded SmarterHQ, built the process that automated model building for its 100+ clients, and has served as Chief Data Scientist at SmarterHQ, Wunderkind and Appriss Retail. His methods have been taught to <b>thousands of practitioners</b>.</p>
+      <blockquote class="quote">"Automation gets you to an answer faster. It does not make it the right answer."</blockquote>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="creds2 rv">
+      <div><span class="ck">Author</span><b><i>Applied Predictive Analytics</i></b><span>Wiley, 2014</span></div>
+      <div><span class="ck">Co-author</span><b><i>The IBM SPSS Modeler Cookbook</i></b><span>Packt, 2013</span></div>
+      <div><span class="ck">Advisory boards</span><b>UC Irvine &amp; UC San Diego</b><span>Predictive analytics and data science programs</span></div>
+      <div><span class="ck">Education</span><b>RPI &amp; University of Virginia</b><span>Computational math, B.S. · Applied math, M.S.</span></div>
+    </div>
+    <div class="career rv"><p class="career-k">Three decades, one thread: models that hold up in the real world</p><ol><li><span class="cy">1991</span><b>Martin Marietta</b><span class="cd">Neural networks for postal bar-code readers and character recognition.</span></li><li><span class="cy">1996</span><b>Elder Research</b><span class="cd">Senior research scientist. Co-presented KDD-98's record-attendance workshop.</span></li><li><span class="cy">1999</span><b>Abbott Analytics</b><span class="cd">Founded the firm that still leads his consulting work.</span></li><li><span class="cy">2009</span><b>SmarterHQ</b><span class="cd">Co-founder. Automated model building for 100+ clients.</span></li><li><span class="cy">2020</span><b>Wunderkind</b><span class="cd">Chief Data Scientist after the SmarterHQ merger.</span></li><li><span class="cy">2023</span><b>UVA Darden</b><span class="cd">Bodily Bicentennial Professor of Analytics.</span></li><li><span class="cy">2024</span><b>Appriss Retail</b><span class="cd">Chief Data Scientist through a 2025 acquisition.</span></li></ol></div>
+  </div>
+</section>
+
+<!-- 07b TESTIMONIALS -->
+<section class="section tests" aria-labelledby="t-h">
+  <div class="wrap">
+    <div class="tests-head rv">
+      <p class="eyebrow">What clients say</p>
+      <h2 id="t-h">Three decades of work. <span class="em">Here's what it looks like from the other side.</span></h2>
+    </div>
+    <figure class="feature rv">
+      <div class="feature-core">
+        <div class="f-photo"><img src="assets/people/12.jpg" alt="Eric Siegel" width="384" height="384" loading="lazy"></div>
+        <div class="f-text">
+          <svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg>
+          <blockquote><p class="f-big">"Dean Abbott is the quintessential data mining rock star: a top-notch hands-on practitioner of predictive analytics and a fantastic communicator."</p>
+          <p class="f-small">"I've had the pleasure to work with him as a senior consultant on client projects, as a 5-star-rated conference speaker I've repeatedly enlisted for Predictive Analytics World, and as an acclaimed workshop instructor at the same event. You get the best of all worlds with Dean: deep analytical insights, stellar execution, clear communication, and contagious enthusiasm."</p></blockquote>
+          <figcaption><b>Eric Siegel</b><span>Founder of Machine Learning Week · Former Columbia professor · Bestselling author</span></figcaption>
+        </div>
+      </div>
+    </figure>
+  </div>
+  <div class="trows rv" aria-label="More testimonials">
+    <div class="trow"><div class="ttrack"><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is undoubtedly one of the top independent data mining consultants in the market. He excels as an expert trainer able to present complex topics to audiences of all backgrounds.</blockquote><figcaption><img src="assets/people/07.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Daniele Micci-Barreca</b>Data Science, Google Search · ex Uber</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean delivered key circulation models on time and within budget. He will be the first person I call if my clients need predictive modeling.</blockquote><figcaption><img src="assets/people/05.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Greg Timpany</b>Formerly of the Los Angeles Times</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is the "full package." I have engaged Dean frequently over the last 11 years, and for good reason. He receives exemplary feedback from clients.</blockquote><figcaption><img src="assets/people/06.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric King</b>President &amp; Owner, TMA, LLC</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an incredibly bright individual who finds patterns in data that very few other people can. I have seen a number of his models deployed to great success.</blockquote><figcaption><img src="assets/people/03.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Matt Tessar</b>Co-Founder and CTO, Tesmo</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>His ability to combine state-of-the-art analytics with pragmatic business issues is truly a wonder to behold.</blockquote><figcaption><img src="assets/people/09.jpg" alt="" width="44" height="44" loading="lazy"><span><b>T. Scott Clendaniel</b>VP of Data Science, Analytic Edge</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean has the rare combination of technical expertise and the ability to communicate clearly, complicated data mining solutions to a general audience.</blockquote><figcaption><img src="assets/people/01.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Brian Siegel</b>Director of Analytics</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is undoubtedly one of the top independent data mining consultants in the market. He excels as an expert trainer able to present complex topics to audiences of all backgrounds.</blockquote><figcaption><img src="assets/people/07.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Daniele Micci-Barreca</b>Data Science, Google Search · ex Uber</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean delivered key circulation models on time and within budget. He will be the first person I call if my clients need predictive modeling.</blockquote><figcaption><img src="assets/people/05.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Greg Timpany</b>Formerly of the Los Angeles Times</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is the "full package." I have engaged Dean frequently over the last 11 years, and for good reason. He receives exemplary feedback from clients.</blockquote><figcaption><img src="assets/people/06.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric King</b>President &amp; Owner, TMA, LLC</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an incredibly bright individual who finds patterns in data that very few other people can. I have seen a number of his models deployed to great success.</blockquote><figcaption><img src="assets/people/03.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Matt Tessar</b>Co-Founder and CTO, Tesmo</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>His ability to combine state-of-the-art analytics with pragmatic business issues is truly a wonder to behold.</blockquote><figcaption><img src="assets/people/09.jpg" alt="" width="44" height="44" loading="lazy"><span><b>T. Scott Clendaniel</b>VP of Data Science, Analytic Edge</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean has the rare combination of technical expertise and the ability to communicate clearly, complicated data mining solutions to a general audience.</blockquote><figcaption><img src="assets/people/01.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Brian Siegel</b>Director of Analytics</span></figcaption></figure></div></div>
+    <div class="trow rev"><div class="ttrack"><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is masterful at blending data science with a deep understanding of retail customer behavior. He always lets the data drive his decisions.</blockquote><figcaption><img src="assets/people/10.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Ryan Cush</b>VP, Strategic Account Management, SmarterHQ</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an insightful thinker who can quickly get to the core of the problem and who can consistently provide useful solutions.</blockquote><figcaption><img src="assets/people/00.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Dariusz Wroblewski</b>President, BioFormatix, Inc.</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He not only has a deep understanding of this complex field, but can also effectively train a relative novice business user to perform successful data modeling.</blockquote><figcaption><img src="assets/people/02.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric Vogan</b>Customer Success Manager, Select Star</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean sees things most of us are blind to and is very gracious in sharing his insight. He is a great speaker, profound teacher, and just a joy to experience.</blockquote><figcaption><img src="assets/people/04.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Lynne White</b>Indoor Environmental Consultant</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He's the perfect combination of experiential knowledge and inferential learning. Working with Dean is fun and you'll always learn something new!</blockquote><figcaption><img src="assets/people/11.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Michele Chambers</b>B2B Fractional CMO</span></figcaption></figure><figure class="tcard"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean Abbott has offered predictive analytic workshops throughout the country and the feedback from those who attend is always very positive. I never hesitate to recommend one of Dean's courses.</blockquote><figcaption><img src="assets/people/08.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Win Noren</b>Director of Operations, WarePig</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is masterful at blending data science with a deep understanding of retail customer behavior. He always lets the data drive his decisions.</blockquote><figcaption><img src="assets/people/10.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Ryan Cush</b>VP, Strategic Account Management, SmarterHQ</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean is an insightful thinker who can quickly get to the core of the problem and who can consistently provide useful solutions.</blockquote><figcaption><img src="assets/people/00.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Dariusz Wroblewski</b>President, BioFormatix, Inc.</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He not only has a deep understanding of this complex field, but can also effectively train a relative novice business user to perform successful data modeling.</blockquote><figcaption><img src="assets/people/02.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Eric Vogan</b>Customer Success Manager, Select Star</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean sees things most of us are blind to and is very gracious in sharing his insight. He is a great speaker, profound teacher, and just a joy to experience.</blockquote><figcaption><img src="assets/people/04.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Lynne White</b>Indoor Environmental Consultant</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>He's the perfect combination of experiential knowledge and inferential learning. Working with Dean is fun and you'll always learn something new!</blockquote><figcaption><img src="assets/people/11.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Michele Chambers</b>B2B Fractional CMO</span></figcaption></figure><figure class="tcard" aria-hidden="true"><svg class="qm" width="26" height="20" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V12.2C0 5.4 3.3 1.3 9.9 0l1.2 2.6C7.4 3.6 5.6 6 5.3 9.4H10V20zm15 0V12.2C15 5.4 18.3 1.3 24.9 0l1.2 2.6c-3.7 1-5.5 3.4-5.8 6.8H25V20z"/></svg><blockquote>Dean Abbott has offered predictive analytic workshops throughout the country and the feedback from those who attend is always very positive. I never hesitate to recommend one of Dean's courses.</blockquote><figcaption><img src="assets/people/08.jpg" alt="" width="44" height="44" loading="lazy"><span><b>Win Noren</b>Director of Operations, WarePig</span></figcaption></figure></div></div>
   </div>
 </section>
 
@@ -890,6 +970,15 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   // arrival reveals
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // problem chat: question, typing, confident reply, then what it never asked
+  const chat = document.getElementById('chat');
+  const cio2 = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; cio2.disconnect();
+    const T = reduce ? () => 0 : ms => ms;
+    [[1,200],[2,800],[3,2200],[4,3300]].forEach(([n, t]) => setTimeout(() => chat.classList.add('s' + n), T(t)));
+  }), {threshold:.45});
+  cio2.observe(chat);
 
   // the case: the problem fans out, each engine looks right, each gets flagged, the lines converge on the case study
   const flow = document.getElementById('flow'), engs = [...flow.querySelectorAll('.eng')];
