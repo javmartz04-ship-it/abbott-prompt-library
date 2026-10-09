@@ -228,6 +228,8 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 
 /* look inside: tabs drive the page */
 .look{background:var(--canvas);border-bottom:1px solid var(--hair)}
+.close{padding-top:0 !important}
+.close .foot{margin-top:0}
 .look-head{text-align:center}
 .look-head h2{margin:22px auto 0;font-size:clamp(34px,4vw,52px);max-width:20ch}
 .look-head p{margin:18px auto 0;font-size:18.5px;max-width:52ch}
@@ -429,7 +431,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .cd{display:block;margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--muted)}
 
 /* offer: stack + price card */
-.offer{background:#fff;border-bottom:1px solid var(--hair)}
+.offer{background:var(--canvas);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .offer-head{text-align:center}
 .offer-head h2{margin:22px auto 0;font-size:clamp(34px,4vw,50px);max-width:20ch}
 .offer-head p{margin:18px auto 0;font-size:18.5px}
@@ -718,28 +720,6 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   </div>
 </section>
 
-<!-- 04 MECHANISM -->
-<section class="section mech" aria-labelledby="m-h">
-  <div class="wrap">
-    <div class="mech-head rv">
-      <p class="eyebrow">The practitioner-first prompt method</p>
-      <h2 id="m-h">GenAI does the fast work. You keep the decisions.</h2>
-      <p>Every framework in the library runs the same four moves, in the same order.</p>
-    </div>
-    <ol class="rail">
-      <li class="stage rv"><span class="dot">01</span><div><span class="tag">Frame</span><h3>Frame the decision</h3><p>Treat the model as a business decision you happen to be solving with data.</p></div></li>
-      <li class="stage rv" style="--rd:.08s"><span class="dot">02</span><div><span class="tag">Generate</span><h3>Let GenAI draft</h3><p>Features, code and documentation in seconds. The work that should move faster.</p></div></li>
-      <li class="stage rv" style="--rd:.16s"><span class="dot">03</span><div><span class="tag">Challenge</span><h3>Make it argue</h3><p>Force it to surface assumptions, risks and leakage before you trust it.</p></div></li>
-      <li class="stage rv" style="--rd:.24s"><span class="dot">04</span><div><span class="tag">Decide</span><h3>Keep the judgment</h3><p>You validate and you decide. GenAI scales your judgment. It never replaces it.</p></div></li>
-    </ol>
-    <div class="mech-foot rv">
-      <p class="why">Automate the work that should move faster. Keep judgment where judgment belongs.</p>
-      <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-      <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
-    </div>
-  </div>
-</section>
-
 <!-- 05 LOOK INSIDE: tabs open real library pages -->
 <section class="section look" id="look" aria-labelledby="l-h">
   <div class="wrap">
@@ -789,6 +769,28 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   </div>
 </section>
 
+<!-- 04 MECHANISM -->
+<section class="section mech" aria-labelledby="m-h">
+  <div class="wrap">
+    <div class="mech-head rv">
+      <p class="eyebrow">The practitioner-first prompt method</p>
+      <h2 id="m-h">GenAI does the fast work. You keep the decisions.</h2>
+      <p>Every framework in the library runs the same four moves, in the same order.</p>
+    </div>
+    <ol class="rail">
+      <li class="stage rv"><span class="dot">01</span><div><span class="tag">Frame</span><h3>Frame the decision</h3><p>Treat the model as a business decision you happen to be solving with data.</p></div></li>
+      <li class="stage rv" style="--rd:.08s"><span class="dot">02</span><div><span class="tag">Generate</span><h3>Let GenAI draft</h3><p>Features, code and documentation in seconds. The work that should move faster.</p></div></li>
+      <li class="stage rv" style="--rd:.16s"><span class="dot">03</span><div><span class="tag">Challenge</span><h3>Make it argue</h3><p>Force it to surface assumptions, risks and leakage before you trust it.</p></div></li>
+      <li class="stage rv" style="--rd:.24s"><span class="dot">04</span><div><span class="tag">Decide</span><h3>Keep the judgment</h3><p>You validate and you decide. GenAI scales your judgment. It never replaces it.</p></div></li>
+    </ol>
+    <div class="mech-foot rv">
+      <p class="why">Automate the work that should move faster. Keep judgment where judgment belongs.</p>
+      <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
+    </div>
+  </div>
+</section>
+
 <!-- 08 OFFER -->
 <section class="section offer" aria-labelledby="o-h">
   <div class="wrap">
@@ -825,11 +827,6 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
         <ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>What each engine produced</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Where all three went wrong</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>The assumption that should have stopped the analysis</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>The question that catches it next time</b></span></li></ul></div>
       <div class="part rv" style="--rd:.16s"><span class="pk">Part 03</span><h3>The working toolkit</h3><p>The pages that get you running on your own project, not just reading about it.</p>
         <ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Prompt engineering principles</b> · Step 1 of the 8-step core sequence</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Environment and data setup</b> · two prompts, once per session</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Build-your-own-library worksheet</b> · keep the prompts that earn their place</span></li></ul></div>
-    </div>
-    <div class="next rv" aria-label="What happens after you click">
-      <div><span class="i">01</span><span class="t"><b>Secure checkout</b><span>$47, one time.</span></span></div>
-      <div><span class="i">02</span><span class="t"><b>Instant access</b><span>The library is yours the moment you check out.</span></span></div>
-      <div><span class="i">03</span><span class="t"><b>Start with Framework 01</b><span>Run it on the model you're working on this week.</span></span></div>
     </div>
   </div>
 </section>
@@ -892,7 +889,6 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
       <div><span class="ck">Advisory boards</span><b>UC Irvine &amp; UC San Diego</b><span>Predictive analytics and data science programs</span></div>
       <div><span class="ck">Education</span><b>RPI &amp; University of Virginia</b><span>Computational math, B.S. · Applied math, M.S.</span></div>
     </div>
-    <div class="career rv"><p class="career-k">Three decades, one thread: models that hold up in the real world</p><ol><li><span class="cy">1991</span><b>Martin Marietta</b><span class="cd">Neural networks for postal bar-code readers and character recognition.</span></li><li><span class="cy">1996</span><b>Elder Research</b><span class="cd">Senior research scientist. Co-presented KDD-98's record-attendance workshop.</span></li><li><span class="cy">1999</span><b>Abbott Analytics</b><span class="cd">Founded the firm that still leads his consulting work.</span></li><li><span class="cy">2009</span><b>SmarterHQ</b><span class="cd">Co-founder. Automated model building for 100+ clients.</span></li><li><span class="cy">2020</span><b>Wunderkind</b><span class="cd">Chief Data Scientist after the SmarterHQ merger.</span></li><li><span class="cy">2023</span><b>UVA Darden</b><span class="cd">Bodily Bicentennial Professor of Analytics.</span></li><li><span class="cy">2024</span><b>Appriss Retail</b><span class="cd">Chief Data Scientist through a 2025 acquisition.</span></li></ol></div>
   </div>
 </section>
 
@@ -936,16 +932,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 </section>
 
 <!-- 11 CLOSE + footer -->
-<section class="close" aria-labelledby="x-h">
-  <div class="wrap rv">
-    <p class="eyebrow">Get the library</p>
-    <h2 id="x-h">Build better models faster. <span class="em">Keep the judgment yours.</span></h2>
-    <p class="sub">The moment you check out you get all six frameworks, Dean's leakage case walkthrough, and the setup guide and worksheet. Use it on your next modeling task. <b>$47, one time.</b></p>
-    <div class="cta-row">
-      <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-      <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
-    </div>
-  </div>
+<section class="close" aria-label="Footer">
   <footer class="foot wrap">
     <svg class="logo" role="img" aria-label="Abbott Analytics"><use href="#aa-logo"/></svg>
     <p>This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is not endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. Results shown on this page are results from past customers that were shared with us. Your results will vary and depend on many factors, including your work ethic and experience level. All business involves risk as well as massive and consistent action and effort. By purchasing, you agree to the full Terms &amp; Conditions.</p>
