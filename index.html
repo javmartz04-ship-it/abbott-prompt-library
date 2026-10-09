@@ -81,7 +81,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   box-shadow:0 40px 90px -40px rgba(0,29,87,.4),inset 0 1px 0 #fff}
 .bezel-core{position:relative;border-radius:21px;overflow:hidden;background:var(--navy-deep);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .player{width:min(900px,100%);margin:44px auto 0}
-.player video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#000}
 .play{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer;
   background:linear-gradient(180deg,rgba(2,6,28,.04),rgba(2,6,28,.34));color:#fff;font:600 17px/1.2 var(--display);transition:opacity .4s var(--ease),background .4s var(--ease)}
 .play:hover{background:linear-gradient(180deg,rgba(2,6,28,0),rgba(2,6,28,.26))}
@@ -101,7 +101,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .bar span{display:block;height:100%;width:0;background:var(--accent)}
 .player.started .bar{opacity:1}
 .endcard{position:absolute;inset:0;z-index:4;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;text-align:center;
-  background:linear-gradient(rgba(2,6,28,.7),rgba(2,6,28,.82)),url(assets/vsl-poster.jpg) center/cover;opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
+  background:linear-gradient(rgba(2,6,28,.7),rgba(2,6,28,.82)),url(assets/vsl-poster.jpg?v=2) center/cover;opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
 .player.ended .endcard{opacity:1;pointer-events:auto}
 .player.ended .hold,.player.ended .bar{display:none}
 .endcard p{color:#fff;font:600 clamp(20px,2.4vw,28px)/1.25 var(--display);letter-spacing:-.02em;max-width:24ch}
@@ -343,9 +343,11 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   .player{margin-top:36px}
   .bezel{padding:6px;border-radius:22px}
   .bezel-core{border-radius:17px}
-  .play .disc{width:66px;height:66px}
-  .play .disc svg{width:22px;height:22px}
-  .play .label{font-size:14px;padding:7px 14px}
+  .play{flex-direction:row;justify-content:center;align-items:flex-end;gap:10px;padding-bottom:14px}
+  .play .disc{width:52px;height:52px}
+  .play .disc::after{inset:-7px}
+  .play .disc svg{width:20px;height:20px}
+  .play .label{font-size:13.5px;padding:8px 13px;margin-bottom:9px}
   .chip{top:10px;left:10px;font-size:10.5px;padding:7px 11px}
   .endcard{gap:10px;padding:12px}
   .endcard p{display:none}
@@ -409,7 +411,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 
     <div class="player rise" id="player">
       <div class="bezel"><div class="bezel-core">
-        <video id="vsl" src="assets/intro.mp4" poster="assets/vsl-poster.jpg" preload="metadata" playsinline width="1280" height="720"></video>
+        <video id="vsl" src="assets/intro.mp4?v=2" poster="assets/vsl-poster.jpg?v=2" preload="metadata" playsinline width="1280" height="720"></video>
         <span class="chip"><i></i>Press play · 1:02</span>
         <button class="play" type="button" aria-label="Play Dean's intro video, 1 minute 2 seconds"><span class="disc"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="label">Watch Dean's Intro</span></button>
         <button class="hold" type="button" aria-label="Pause or resume the video"><span class="pz"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></span></button>
