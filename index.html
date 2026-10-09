@@ -279,6 +279,29 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 .as-seen span{font:600 11.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
 .as-seen img{display:block;width:auto}
 
+.incl{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin-top:16px;list-style:none}
+.incl li{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:500;color:var(--ink)}
+.doc-2{display:grid;grid-template-columns:1fr 1fr;gap:4.4cqw;margin-top:1cqw}
+.doc-2 .doc-k{margin-top:3.6cqw}
+.doc-2 .doc-s{font-style:normal;color:#3f4c6e}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.part{display:flex;flex-direction:column;padding:30px 28px 28px;border-radius:24px;background:var(--canvas);border:1px solid var(--hair)}
+.part.feat{background:var(--lit-navy);border-color:transparent;color:rgba(255,255,255,.75);box-shadow:0 30px 60px -36px rgba(0,29,87,.6)}
+.pk{font:600 11.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.part.feat .pk{color:var(--on-navy-em)}
+.part h3{margin-top:14px;font-size:22px;letter-spacing:-.02em;line-height:1.2}
+.part.feat h3{color:#fff}
+.part > p{margin-top:10px;font-size:15.5px;line-height:1.6}
+.part ul{list-style:none;display:grid;gap:11px;margin-top:20px;padding-top:20px;border-top:1px solid var(--hair)}
+.part.feat ul{border-color:rgba(255,255,255,.14)}
+.part li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:15px;line-height:1.45;color:var(--muted)}
+.part li svg{margin-top:2px;color:var(--accent)}
+.part.feat li{color:rgba(255,255,255,.7)}
+.part.feat li svg{color:var(--on-navy-em)}
+.part li b{font-weight:600;color:var(--ink)}
+.part.feat li b{color:#fff}
+.close .sub b{color:var(--ink);font-weight:600}
+
 /* testimonials */
 .tests{background:var(--canvas);border-top:1px solid var(--hair);overflow:hidden}
 .tests-head{text-align:center}
@@ -562,6 +585,9 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   .pages .p2{position:relative;left:auto;top:auto;margin:0;width:min(100%,330px)}
   .everything{grid-template-columns:1fr;padding:24px 20px}
   .case{padding:88px 0}
+  .incl{flex-direction:column;align-items:center;gap:8px}
+  .parts{grid-template-columns:1fr;gap:14px}
+  .doc-2{grid-template-columns:1fr;gap:0}
   .trust{margin-top:48px;padding-top:30px}
   .ltrack{gap:38px;animation-duration:60s}
   .trust{padding-bottom:44px}
@@ -641,6 +667,11 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
     <div class="cta-row rise">
       <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
+      <ul class="incl">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Six practitioner prompt frameworks</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Dean's leakage case walkthrough</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Setup guide + build-your-own worksheet</li>
+      </ul>
     </div>
 
     <div class="trust rv">
@@ -736,8 +767,10 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
           <div class="doc-body">
             <div class="doc-title"><h4 id="d-title">Feature <em>ideation</em></h4><span class="doc-tag">Framework</span></div>
             <p class="doc-p" id="d-desc">Generate candidate features while forcing the model to surface assumptions, risks, and potential leakage.</p>
-            <p class="doc-k">Where it fits</p>
-            <p class="doc-s" id="d-fit">Method step 02, Generate: the work that should move faster.</p>
+            <div class="doc-2">
+              <div><p class="doc-k">Use it when</p><p class="doc-s" id="d-when">You're generating candidate features for a model.</p></div>
+              <div><p class="doc-k">What it produces</p><p class="doc-s" id="d-gets">Candidate features with the assumptions, risks and possible leakage behind each one.</p></div>
+            </div>
             <div class="doc-key">
               <span class="dk-l" id="d-label">The prompt</span>
               <p class="dk-in" id="d-in">Instead of <s>"Is this feature useful?"</s></p>
@@ -779,21 +812,20 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
         <ul>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>All six practitioner frameworks</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>The leakage case walkthrough</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Setup guide + build-your-own worksheet</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Instant digital access</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0055fe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No subscription</li>
         </ul>
       </div></aside>
     </div>
-    <ul class="everything rv">
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Feature ideation frameworks</b>Candidate features with assumptions, risks and leakage surfaced.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Diagnostic prompts</b>Challenge model behavior instead of the first convenient explanation.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Analytical critique prompts</b>Competing explanations and the assumptions worth another look.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Code and workflow prompts</b>Draft, review and refine code with validation kept in the loop.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Documentation prompts</b>Clearer documentation without outsourcing the thinking.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Red-team frameworks</b>Attack your reasoning before your stakeholders do.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Dean's leakage case walkthrough</b>Three AI engines, one dataset, the same mistake. Start to finish.</div></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0055fe"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Build-your-own-library worksheet</b>Save the prompts that earn their place, and why they worked.</div></li>
-    </ul>
+    <div class="parts">
+      <div class="part rv"><span class="pk">Part 01</span><h3>The six practitioner frameworks</h3><p>Reusable prompts for each part of the modeling job, each on its own page with when to use it and what it produces.</p>
+        <ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Feature ideation</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Model diagnostics</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Analytical critique</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Code acceleration</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Documentation</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Red-teaming</b></span></li></ul></div>
+      <div class="part feat rv" style="--rd:.08s"><span class="pk">Part 02</span><h3>The leakage case walkthrough</h3><p>Three AI engines, one dataset, the same mistake. Dean walks through it start to finish.</p>
+        <ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>What each engine produced</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Where all three went wrong</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>The assumption that should have stopped the analysis</b></span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>The question that catches it next time</b></span></li></ul></div>
+      <div class="part rv" style="--rd:.16s"><span class="pk">Part 03</span><h3>The working toolkit</h3><p>The pages that get you running on your own project, not just reading about it.</p>
+        <ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Prompt engineering principles</b> · Step 1 of the 8-step core sequence</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Environment and data setup</b> · two prompts, once per session</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Build-your-own-library worksheet</b> · keep the prompts that earn their place</span></li></ul></div>
+    </div>
     <div class="next rv" aria-label="What happens after you click">
       <div><span class="i">01</span><span class="t"><b>Secure checkout</b><span>$47, one time.</span></span></div>
       <div><span class="i">02</span><span class="t"><b>Instant access</b><span>The library is yours the moment you check out.</span></span></div>
@@ -908,7 +940,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   <div class="wrap rv">
     <p class="eyebrow">Get the library</p>
     <h2 id="x-h">Build better models faster. <span class="em">Keep the judgment yours.</span></h2>
-    <p class="sub">Six practitioner frameworks and the leakage case that shows why they exist. Instant access for $47.</p>
+    <p class="sub">The moment you check out you get all six frameworks, Dean's leakage case walkthrough, and the setup guide and worksheet. Use it on your next modeling task. <b>$47, one time.</b></p>
     <div class="cta-row">
       <a class="cta buy" href="https://academy.abbottanalytics.com/prompt-library-checkout">Get Instant Access<span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       <p class="risk"><b>$47 one-time</b> · Instant digital access<span class="x3"> · No subscription</span></p>
@@ -951,6 +983,28 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
   vsl.addEventListener('timeupdate', () => { if (started && vsl.duration) vbar.style.width = (vsl.currentTime / vsl.duration * 100) + '%'; });
   vsl.addEventListener('ended', () => { if (!started) return; player.classList.add('ended'); player.classList.remove('paused'); });
 
+  // measurement: pushes to dataLayer / Meta Pixel / gtag when the host page has them (GHL, GTM). No-ops otherwise.
+  const track = (name, props = {}) => { try {
+    (window.dataLayer = window.dataLayer || []).push(Object.assign({event: name}, props));
+    if (window.fbq) window.fbq('trackCustom', name, props);
+    if (window.gtag) window.gtag('event', name, props);
+  } catch (e) {} };
+  document.querySelectorAll('a.buy').forEach(a => a.addEventListener('click', () => {
+    const sec = a.closest('section'); const where = sec ? (sec.getAttribute('aria-labelledby') || sec.className.split(' ')[0]) : 'other';
+    track('cta_click', {cta_location: a.closest('.endcard') ? 'video_end' : where});
+    try { if (window.fbq) window.fbq('track', 'InitiateCheckout', {value: 47, currency: 'USD'}); } catch (e) {}
+  }));
+  { const v = document.getElementById('vsl'); const sent = {};
+    v.addEventListener('timeupdate', () => { if (!v.muted && v.duration) [25, 50, 75].forEach(q => { if (!sent[q] && v.currentTime / v.duration * 100 >= q) { sent[q] = 1; track('vsl_progress', {percent: q}); } }); });
+    v.addEventListener('play', () => { if (!v.muted && !sent.play) { sent.play = 1; track('vsl_play'); } });
+    v.addEventListener('ended', () => { if (!v.muted) track('vsl_complete'); }); }
+  document.querySelectorAll('.tab').forEach((t, i) => t.addEventListener('click', () => track('framework_open', {framework: i + 1})));
+  document.getElementById('d-copy').addEventListener('click', () => track('prompt_copy'));
+  { const marks = [25, 50, 75, 100], hit = {}; let tk = 0;
+    addEventListener('scroll', () => { if (tk) return; tk = requestAnimationFrame(() => { tk = 0;
+      const pct = (scrollY + innerHeight) / document.documentElement.scrollHeight * 100;
+      marks.forEach(m => { if (!hit[m] && pct >= m - 1) { hit[m] = 1; track('scroll_depth', {percent: m}); } }); }); }, {passive: true}); }
+
   // arrival reveals
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
@@ -982,12 +1036,12 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
 
   // look inside: tabs open each framework's page. cycles until the visitor clicks, then stays put.
   const F = [
-    {t:['Feature','ideation'], fit:'Method step 02, Generate: the work that should move faster.', d:'Generate candidate features while forcing the model to surface assumptions, risks, and potential leakage.', l:'The prompt', i:'"Is this feature useful?"', a:'"What leakage or proxy behavior could make this feature appear predictive when it isn\'t?"'},
-    {t:['Model','diagnostics'], fit:'Method step 03, Challenge: make it argue before you trust it.', d:'Push GenAI to challenge model behavior instead of accepting the first convenient explanation.', l:'The prompt', i:'"Explain this result."', a:'"Give me three competing explanations and the evidence that would distinguish them."'},
-    {t:['Analytical','critique'], fit:'Method step 03, Challenge: make it argue before you trust it.', d:'Generate competing explanations and expose assumptions that deserve another look.', l:'The prompt', i:'"What model should I use?"', a:'"What assumptions would make this recommendation wrong?"'},
-    {t:['Code','acceleration'], fit:'Method step 02, Generate: the work that should move faster.', d:'Use GenAI to draft, review, and refine code while keeping practitioner validation in the loop.', l:'The rule', i:'', a:'GenAI drafts it. You validate it before it runs anywhere that matters.'},
-    {t:['Clear','documentation'], fit:'Method step 02, Generate: the work that should move faster.', d:'Turn technical work into clearer documentation without outsourcing the thinking behind it.', l:'The rule', i:'', a:'GenAI writes it up. The thinking behind it stays yours.'},
-    {t:['Red-team','your reasoning'], fit:'Method step 03, Challenge: make it argue before you trust it.', d:'Use GenAI to attack your reasoning before your stakeholders do.', l:'The rule', i:'', a:'Find the hole in your argument before the meeting, not during it.'}
+    {t:['Feature','ideation'], when:'You\'re generating candidate features for a model.', gets:'Candidate features with the assumptions, risks and possible leakage behind each one.', d:'Generate candidate features while forcing the model to surface assumptions, risks, and potential leakage.', l:'The prompt', i:'"Is this feature useful?"', a:'"What leakage or proxy behavior could make this feature appear predictive when it isn\'t?"'},
+    {t:['Model','diagnostics'], when:'A model\'s behavior surprises you, good or bad.', gets:'Competing explanations, and the evidence that would tell them apart.', d:'Push GenAI to challenge model behavior instead of accepting the first convenient explanation.', l:'The prompt', i:'"Explain this result."', a:'"Give me three competing explanations and the evidence that would distinguish them."'},
+    {t:['Analytical','critique'], when:'You\'re about to act on a result or recommendation.', gets:'The assumptions that would make it wrong, so you can check them first.', d:'Generate competing explanations and expose assumptions that deserve another look.', l:'The prompt', i:'"What model should I use?"', a:'"What assumptions would make this recommendation wrong?"'},
+    {t:['Code','acceleration'], when:'You need code drafted or reviewed fast.', gets:'Drafted and reviewed code, with your validation still in the loop.', d:'Use GenAI to draft, review, and refine code while keeping practitioner validation in the loop.', l:'The rule', i:'', a:'GenAI drafts it. You validate it before it runs anywhere that matters.'},
+    {t:['Clear','documentation'], when:'Technical work needs writing up for other people.', gets:'Clear documentation that still reflects your own thinking.', d:'Turn technical work into clearer documentation without outsourcing the thinking behind it.', l:'The rule', i:'', a:'GenAI writes it up. The thinking behind it stays yours.'},
+    {t:['Red-team','your reasoning'], when:'Before results go in front of stakeholders.', gets:'The strongest objections to your reasoning, while you can still fix them.', d:'Use GenAI to attack your reasoning before your stakeholders do.', l:'The rule', i:'', a:'Find the hole in your argument before the meeting, not during it.'}
   ];
   const tabs = [...document.querySelectorAll('.tab')], doc = document.getElementById('doc'), $ = id => document.getElementById(id);
   const copyBtn = $('d-copy');
@@ -997,7 +1051,7 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;letter-s
     const f = F[i], n = String(i + 1).padStart(2, '0');
     $('d-head').innerHTML = 'Prompt library / Framework ' + n + '<small>' + tabs[i].querySelector('b').textContent + '</small>';
     $('d-title').innerHTML = f.t[0] + ' <em>' + f.t[1] + '</em>';
-    $('d-desc').textContent = f.d; $('d-fit').textContent = f.fit; $('d-label').textContent = f.l; $('d-num').textContent = n;
+    $('d-desc').textContent = f.d; $('d-when').textContent = f.when; $('d-gets').textContent = f.gets; $('d-label').textContent = f.l; $('d-num').textContent = n;
     $('d-in').innerHTML = f.i ? 'Instead of <s>' + f.i + '</s>' : ''; $('d-in').hidden = !f.i;
     $('d-ask').textContent = f.a;
     copyBtn.hidden = !f.i; copyBtn.classList.remove('done'); copyBtn.querySelector('span').textContent = 'Copy prompt';
